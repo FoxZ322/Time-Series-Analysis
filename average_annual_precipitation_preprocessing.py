@@ -9,27 +9,27 @@ import pandas as pd
 
 data = pd.read_csv('Canadian_climate_history.csv', sep = ',', decimal = '.').fillna(0)
 
-percipation_GALGARY = list(data.TOTAL_PRECIPITATION_CALGARY)
-percipation_EDMONTON = list(data.TOTAL_PRECIPITATION_EDMONTON)
-percipation_MONCTON = list(data.TOTAL_PRECIPITATION_MONCTON)
-percipation_MONTREAL = list(data.TOTAL_PRECIPITATION_MONTREAL)
-percipation_OTTAWA = list(data.TOTAL_PRECIPITATION_OTTAWA)
-percipation_QUEBEC = list(data.TOTAL_PRECIPITATION_QUEBEC)
-percipation_SASKATOON = list(data.TOTAL_PRECIPITATION_SASKATOON)
-percipation_STJOHNS = list(data.TOTAL_PRECIPITATION_STJOHNS)
-percipation_TORONTO = list(data.TOTAL_PRECIPITATION_TORONTO)
-percipation_VANCOUVER= list(data.TOTAL_PRECIPITATION_VANCOUVER)
-percipation_WHITEHORSE = list(data.TOTAL_PRECIPITATION_WHITEHORSE)
-percipation_WINNIPEG = list(data.TOTAL_PRECIPITATION_WINNIPEG)
+precipitation_GALGARY = list(data.TOTAL_PRECIPITATION_CALGARY)
+precipitation_EDMONTON = list(data.TOTAL_PRECIPITATION_EDMONTON)
+precipitation_MONCTON = list(data.TOTAL_PRECIPITATION_MONCTON)
+precipitation_MONTREAL = list(data.TOTAL_PRECIPITATION_MONTREAL)
+precipitation_OTTAWA = list(data.TOTAL_PRECIPITATION_OTTAWA)
+precipitation_QUEBEC = list(data.TOTAL_PRECIPITATION_QUEBEC)
+precipitation_SASKATOON = list(data.TOTAL_PRECIPITATION_SASKATOON)
+precipitation_STJOHNS = list(data.TOTAL_PRECIPITATION_STJOHNS)
+precipitation_TORONTO = list(data.TOTAL_PRECIPITATION_TORONTO)
+precipitation_VANCOUVER= list(data.TOTAL_PRECIPITATION_VANCOUVER)
+precipitation_WHITEHORSE = list(data.TOTAL_PRECIPITATION_WHITEHORSE)
+precipitation_WINNIPEG = list(data.TOTAL_PRECIPITATION_WINNIPEG)
 
 
-percipations = [percipation_GALGARY, percipation_EDMONTON, percipation_MONCTON,
-                percipation_MONTREAL, percipation_OTTAWA, percipation_QUEBEC,
-                percipation_SASKATOON, percipation_STJOHNS, percipation_TORONTO,
-                percipation_VANCOUVER, percipation_WHITEHORSE, percipation_WINNIPEG]
+precipitations = [precipitation_GALGARY, precipitation_EDMONTON, precipitation_MONCTON,
+                precipitation_MONTREAL, precipitation_OTTAWA, precipitation_QUEBEC,
+                precipitation_SASKATOON, precipitation_STJOHNS, precipitation_TORONTO,
+                precipitation_VANCOUVER, precipitation_WHITEHORSE, precipitation_WINNIPEG]
 
 
-def to_annual_percipation(series):
+def to_annual_precipitation(series):
     res = [] 
     current = list(series)
     for i in range(80):
@@ -43,17 +43,17 @@ def to_annual_percipation(series):
     return res
             
             
-annual_percipations = list(map(to_annual_percipation, percipations))
+annual_precipitations = list(map(to_annual_precipitation, precipitations))
 
 
 def average_sum(series):
     return sum(series) / sum(elem != 0 for elem in series)
 
 
-average_annual_percipations = list(map(average_sum, zip(*annual_percipations)))
+average_annual_precipitations = list(map(average_sum, zip(*annual_precipitations)))
 
 
-df_average_annual_percipations = pd.DataFrame(average_annual_percipations, columns = ['Average Parcipations'])
+df_average_annual_precipitations = pd.DataFrame(average_annual_precipitations, columns = ['Average Parcipations'])
 
 
-df_average_annual_percipations.to_csv('average_annual_percipations.csv')
+df_average_annual_precipitations.to_csv('average_annual_precipitations.csv')
