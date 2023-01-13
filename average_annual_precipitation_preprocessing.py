@@ -6,6 +6,9 @@ Created on Thu Jan 12 22:48:15 2023
 """
 
 import pandas as pd
+import numpy as np
+import math
+import matplotlib.pyplot as plt
 
 data = pd.read_csv('Canadian_climate_history.csv', sep = ',', decimal = '.').fillna(0)
 
@@ -57,3 +60,39 @@ df_average_annual_precipitations = pd.DataFrame(average_annual_precipitations, c
 
 
 df_average_annual_precipitations.to_csv('average_annual_precipitations.csv')
+
+###############################################################################
+
+annual_precipitations_discrete = []
+
+for i, series in enumerate(annual_precipitations):
+    current = []
+    for value in series:
+        if value:
+            current += [i+1]
+        else:
+            current += [0]
+    annual_precipitations_discrete += [current]
+    
+t = np.linspace(1940, 2019, 80)
+
+colors = ['maroon', 'red', 'orangered',
+          'gold', 'yellow', 'greenyellow',
+          'lime', 'springgreen', 'aquamarine',
+          'cyan', 'dodgerblue', 'mediumblue']
+
+for i in range(12):
+    t_copy = np.copy(t)  
+    ommit = np.abs(annual_precipitations_discrete[i]) == 0
+    t_copy[ommit] = np.nan
+    plt.plot(t_copy, annual_precipitations_discrete[i], linewidth=12, color = colors[i])
+    
+axes = plt.gca()
+
+axes.get_yaxis().set_visible(False)
+axes.spines['top'].set_visible(False)
+axes.spines['right'].set_visible(False)
+axes.spines['bottom'].set_visible(False)
+axes.spines['left'].set_visible(False)
+
+plt.show()
